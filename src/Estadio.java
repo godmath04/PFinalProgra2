@@ -7,10 +7,20 @@ public class Estadio {
         this.capacidad = capacidad;
     }
 
-    // Getters y Setters
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    // Metodos get y set
+    public String getNombre() {
+        return nombre;
+    }
 
-    public int getCapacidad() { return capacidad; }
-    public void setCapacidad(int capacidad) { this.capacidad = capacidad; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(int capacidad) {
+        this.capacidad = capacidad;
+    }
 }

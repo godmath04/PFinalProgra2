@@ -10,27 +10,37 @@ public class Main {
     public static void main(String[] args) {
         // Lista de partidos
         List<Partido> partidos = new ArrayList<>();
-        partidos.add(new Partido("1", LocalDateTime.of(2024, 7, 1, 18, 0), "Equipo A", "Equipo B", "Primera", 50.0, 100));
-        partidos.add(new Partido("2", LocalDateTime.of(2024, 7, 2, 20, 0), "Equipo C", "Equipo D", "Segunda", 30.0, 200));
+        // Partidos que van a existir
+        //Primer partido
+        partidos.add(new Partido("1", LocalDateTime.of(2024, 8, 15, 19, 0), "Liga", "Barcelona", "Primera", 20.0, 100));
+        partidos.add(new Partido("2", LocalDateTime.of(2024, 10, 2, 20, 0), "Imbabura", "Orense", "Segunda", 10.0, 50));
 
         boolean salir = false;
 
         while (!salir) {
-            // Menú principal en un JOptionPane con botones
-            int opcionSeleccionada = JOptionPane.showOptionDialog(null,
+            // Menú principal para ponerle con botones
+            /* Este JOPtion pane se ingresa el mensaje principal con las opciones
+            , el titulo se muestra como la barro, el default opcion da la primera opcion
+            de forma predeterminada, el plain message es que es un mensaje simple y el partidos futuros es
+            prefeterminadao, */
+            int opcion = JOptionPane.showOptionDialog(null,
                     "Seleccione una opción",
                     "Menú Principal",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.PLAIN_MESSAGE,
                     null,
-                    new String[]{"Ver partidos futuros", "Comprar entradas", "Salir"},
-                    "Ver partidos futuros");
+                    // Botones que van a existir
+                    new String[]{"Partidos futuros", "Comprar entradas", "Salir"},
+                    "Partidos futuros");
 
-            switch (opcionSeleccionada) {
-                case 0: // Ver partidos futuros
-                    StringBuilder partidosInfo = new StringBuilder();
-                    for (Partido partido : partidos) {
-                        partidosInfo.append("ID: ").append(partido.getId())
+            //Lo importante es que el Joption anterior devuelve un valor entero de acuerdo
+            //A lo que se seleccione y se anida al string,
+            switch (opcion) {
+                case 0: // Ver para ver los partidos futuros
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < partidos.size(); i++) {
+                        Partido partido = partidos.get(i);
+                        sb.append("ID: ").append(partido.getId())
                                 .append(", Fecha y Hora: ").append(partido.getFechaHora())
                                 .append(", Anfitrión: ").append(partido.getEquipoAnfitrion())
                                 .append(", Visitante: ").append(partido.getEquipoVisitante())
@@ -39,7 +49,8 @@ public class Main {
                                 .append(", Asientos Disponibles: ").append(partido.getAsientosDisponibles())
                                 .append("\n");
                     }
-                    JOptionPane.showMessageDialog(null, partidosInfo.toString(), "Partidos Futuros", JOptionPane.INFORMATION_MESSAGE);
+
+                    JOptionPane.showMessageDialog(null, sb.toString(), "Partidos Futuros", JOptionPane.INFORMATION_MESSAGE);
                     break;
 
                 case 1: // Comprar entradas
@@ -49,12 +60,14 @@ public class Main {
                     }
 
                     Partido partidoSeleccionado = null;
-                    for (Partido partido : partidos) {
+                    for (int i = 0; i < partidos.size(); i++) {
+                        Partido partido = partidos.get(i);
                         if (partido.getId().equals(idPartido)) {
                             partidoSeleccionado = partido;
                             break;
                         }
                     }
+
 
                     if (partidoSeleccionado != null) {
                         String nombre = JOptionPane.showInputDialog("Ingrese su nombre:");
@@ -69,6 +82,7 @@ public class Main {
                         String equipoFavorito = JOptionPane.showInputDialog("Ingrese su equipo favorito:");
                         if (equipoFavorito == null) break;
 
+                        // Importante y sumo cuidado con la fecha de nacimiento
                         String fechaNacimientoStr = JOptionPane.showInputDialog("Ingrese su fecha de nacimiento (AAAA-MM-DD):");
                         if (fechaNacimientoStr == null) break;
 
@@ -102,10 +116,16 @@ public class Main {
 
                         Pago pago = new Pago(metodoPago, partidoSeleccionado.getPrecio());
 
-                        JOptionPane.showMessageDialog(null, "Compra realizada con éxito!\n" +
-                                "Usuario: " + usuario.getNombre() + " " + usuario.getApellido() + "\n" +
-                                "Partido: " + partidoSeleccionado.getEquipoAnfitrion() + " vs " + partidoSeleccionado.getEquipoVisitante() + "\n" +
-                                "Método de pago: " + pago.getMetodo(), "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                        // Reducción de asientos disponibles
+                        try {
+                            partidoSeleccionado.reducirAsientosDisponibles(1); // Reducir asientos en 1
+                            JOptionPane.showMessageDialog(null, "Compra realizada con éxito!\n" +
+                                    "Usuario: " + usuario.getNombre() + " " + usuario.getApellido() + "\n" +
+                                    "Partido: " + partidoSeleccionado.getEquipoAnfitrion() + " vs " + partidoSeleccionado.getEquipoVisitante() + "\n" +
+                                    "Método de pago: " + pago.getMetodo(), "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                        } catch (IllegalArgumentException e) {
+                            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
                     } else {
                         JOptionPane.showMessageDialog(null, "Partido no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -124,6 +144,7 @@ public class Main {
 
     private static boolean esMayorDeEdad(LocalDate fechaNacimiento) {
         LocalDate hoy = LocalDate.now();
+        //Calcullamos la edad donde la persona cumple y si es mayor o no
         return fechaNacimiento.plusYears(18).isBefore(hoy) || fechaNacimiento.plusYears(18).isEqual(hoy);
     }
 }

@@ -7,7 +7,7 @@ public class Pago {
         this.monto = monto;
     }
 
-    // Getters y Setters
+    // Metodo de getters y setters
     public String getMetodo() {
         return metodo;
     }

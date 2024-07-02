@@ -8,7 +8,7 @@ public class Usuario {
     private LocalDate fechaNacimiento;
     private String email;
 
-    // Constructor para cada usuario
+    // Constructor paraa cada Usiario
     public Usuario(String nombre, String apellido, String cedula, String equipoFavorito, LocalDate fechaNacimiento, String email) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -18,10 +18,7 @@ public class Usuario {
         this.email = email;
     }
 
-    //Solo getters y setters
-
-
-    // Getters y Setters
+    //Metodos get y set para llamar el private
     public String getNombre() {
         return nombre;
     }

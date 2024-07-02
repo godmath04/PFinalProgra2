@@ -9,6 +9,7 @@ public class Partido {
     private double precio;
     private int asientosDisponibles;
 
+    //Los atributos iniciales que van a recibir los partidos
     public Partido(String id, LocalDateTime fechaHora, String equipoAnfitrion, String equipoVisitante, String categoria, double precio, int asientosDisponibles) {
         this.id = id;
         this.fechaHora = fechaHora;
@@ -19,7 +20,7 @@ public class Partido {
         this.asientosDisponibles = asientosDisponibles;
     }
 
-    // Getters y Setters
+    // Metodos de get y set
     public String getId() {
         return id;
     }
@@ -74,5 +75,16 @@ public class Partido {
 
     public void setAsientosDisponibles(int asientosDisponibles) {
         this.asientosDisponibles = asientosDisponibles;
+    }
+
+
+    public void reducirAsientosDisponibles(int cantidad) {
+        if (cantidad <= 0) {
+            throw new IllegalArgumentException("El numero debe ser positivo.");
+        }
+        if (cantidad > asientosDisponibles) {
+            throw new IllegalArgumentException("No hay suficientes asientos disponibles.");
+        }
+        this.asientosDisponibles -= cantidad;
     }
 }

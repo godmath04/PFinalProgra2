@@ -78,13 +78,14 @@ public class Partido {
     }
 
 
-    public void reducirAsientosDisponibles(int cantidad) {
-        if (cantidad <= 0) {
-            throw new IllegalArgumentException("El numero debe ser positivo.");
-        }
+    public void reducirAsientosDisponibles(int cantidad) throws IllegalArgumentException {
         if (cantidad > asientosDisponibles) {
             throw new IllegalArgumentException("No hay suficientes asientos disponibles.");
         }
-        this.asientosDisponibles -= cantidad;
+        asientosDisponibles -= cantidad;
+    }
+
+    public boolean hayAsientosDisponibles(int cantidad) {
+        return cantidad <= asientosDisponibles;
     }
 }

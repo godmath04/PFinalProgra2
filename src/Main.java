@@ -75,6 +75,33 @@ public class Main {
 
 
                     if (partidoSeleccionado != null) {
+                        //AHora vamos a verificar la disponibilidad de los asientos
+                        String cantidadStr = JOptionPane.showInputDialog("¿Cuántas entradas desea comprar? (Máximo 3):");
+                        if (cantidadStr == null) break;
+                        int cantidad;
+                        try {
+                            cantidad = Integer.parseInt(cantidadStr);
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Cantidad inválida.", "Error", JOptionPane.ERROR_MESSAGE);
+                            break;
+                        }
+
+                        // Verificar límite de entradas por usuario
+                        if (cantidad < 1 || cantidad > 3) {
+                            JOptionPane.showMessageDialog(null, "Solo puede comprar entre 1 y 3 entradas.", "Error", JOptionPane.ERROR_MESSAGE);
+                            break;
+                        }
+
+                        // Verificar disponibilidad de asientos
+                        if (!partidoSeleccionado.hayAsientosDisponibles(cantidad)) {
+                            JOptionPane.showMessageDialog(null, "No hay suficientes asientos disponibles.", "Error", JOptionPane.ERROR_MESSAGE);
+                            break;
+                        }
+
+                        //Ahora si vamos a pedir datos
+
+
+
                         String nombre = JOptionPane.showInputDialog("Ingrese su nombre:");
                         if (nombre == null) break;
 
@@ -84,7 +111,7 @@ public class Main {
                         String cedula = JOptionPane.showInputDialog("Ingrese su cédula:");
                         if (cedula == null) break;
 
-                        String equipoFavorito = JOptionPane.showInputDialog("Ingrese su equipo favorito:");
+                        String equipoFavorito = JOptionPane.showInputDialog("Ingrese su equipo favorito:\nRecibiras notificaciiones personalizadas a tu correo.");
                         if (equipoFavorito == null) break;
 
                         // Importante y sumo cuidado con la fecha de nacimiento
@@ -123,11 +150,12 @@ public class Main {
 
                         // Reducción de asientos disponibles
                         try {
-                            partidoSeleccionado.reducirAsientosDisponibles(1); // Reducir asientos en 1
+                            partidoSeleccionado.reducirAsientosDisponibles(cantidad); // Reducir asientos en la cantidad solicitada
                             JOptionPane.showMessageDialog(null, "Compra realizada con éxito!\n" +
                                     "Usuario: " + usuario.getNombre() + " " + usuario.getApellido() + "\n" +
                                     "Partido: " + partidoSeleccionado.getEquipoAnfitrion() + " vs " + partidoSeleccionado.getEquipoVisitante() + "\n" +
-                                    "Método de pago: " + pago.getMetodo(), "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+                                    "Entradas: " + cantidad + "\n" +
+                                    "Método de pago: " + pago.getMetodo(), "Confirmacoin", JOptionPane.INFORMATION_MESSAGE);
                         } catch (IllegalArgumentException e) {
                             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         }

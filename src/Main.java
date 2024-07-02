@@ -14,7 +14,7 @@ public class Main {
         // Partidos que van a existir
         //Primer partido
         partidos.add(new Partido("1", LocalDateTime.of(2024, 8, 15, 19, 0), "Liga", "Barcelona", "Primera", 20.0, 100));
-        partidos.add(new Partido("2", LocalDateTime.of(2024, 10, 2, 20, 0), "Imbabura", "Orense", "Segunda", 10.0, 50));
+        partidos.add(new Partido("2", LocalDateTime.of(2024, 10, 2, 20, 0), "Imbabura", "Orense", "Segunda", 10.0, 2));
 
         //Ingresando el admin
         Administrador administrador = new Administrador();

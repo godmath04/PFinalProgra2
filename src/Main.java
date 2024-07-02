@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Main {
     public static void main(String[] args) {
         // Lista de partidos
@@ -15,6 +16,10 @@ public class Main {
         partidos.add(new Partido("1", LocalDateTime.of(2024, 8, 15, 19, 0), "Liga", "Barcelona", "Primera", 20.0, 100));
         partidos.add(new Partido("2", LocalDateTime.of(2024, 10, 2, 20, 0), "Imbabura", "Orense", "Segunda", 10.0, 50));
 
+        //Ingresando el admin
+        Administrador administrador = new Administrador();
+        //Ingresando la contraseña
+        String claveAdministrador = "admin123";
         boolean salir = false;
 
         while (!salir) {
@@ -30,7 +35,7 @@ public class Main {
                     JOptionPane.PLAIN_MESSAGE,
                     null,
                     // Botones que van a existir
-                    new String[]{"Partidos futuros", "Comprar entradas", "Salir"},
+                    new String[]{"Partidos futuros", "Comprar entradas", "Administrador", "Salir"},
                     "Partidos futuros");
 
             //Lo importante es que el Joption anterior devuelve un valor entero de acuerdo
@@ -131,7 +136,20 @@ public class Main {
                     }
                     break;
 
-                case 2: // Salir
+                case 2: // Administrador
+                    JPasswordField passwordField = new JPasswordField();
+                    int option = JOptionPane.showConfirmDialog(null, passwordField, "Ingrese la clave de administrador", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                    if (option == JOptionPane.OK_OPTION) {
+                        String claveIngresada = new String(passwordField.getPassword());
+                        if (claveIngresada.equals(claveAdministrador)) {
+                            administrador.agregarPartido(partidos);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Clave incorrecta.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                    break;
+
+                case 3: // Salir
                     salir = true;
                     break;
 

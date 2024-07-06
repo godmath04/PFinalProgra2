@@ -7,7 +7,7 @@ public class Estadio {
         this.capacidad = capacidad;
     }
 
-    // Metodos get y set
+    // Metodos get y set propios para atributos private
     public String getNombre() {
         return nombre;
     }

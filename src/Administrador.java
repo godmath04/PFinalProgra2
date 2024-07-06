@@ -6,9 +6,10 @@ import java.util.List;
 
 public class Administrador {
     public void agregarPartido(List<Partido> partidos) {
+        //Ingresar el id del partido
         String id = JOptionPane.showInputDialog("Ingrese el ID del nuevo partido:");
         if (id == null) return;
-
+        //Ingresar la fecha y hora del partido
         String fechaHoraStr = JOptionPane.showInputDialog("Ingrese la fecha y hora (AAAA-MM-DDTHH:MM) del partido:");
         if (fechaHoraStr == null) return;
 
@@ -19,16 +20,16 @@ public class Administrador {
             JOptionPane.showMessageDialog(null, "Fecha y hora inválidas.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        // Ingresar el equipo anfitrion
         String equipoAnfitrion = JOptionPane.showInputDialog("Ingrese el equipo anfitrión:");
         if (equipoAnfitrion == null) return;
-
+        //Ingresar el equipo visitante
         String equipoVisitante = JOptionPane.showInputDialog("Ingrese el equipo visitante:");
         if (equipoVisitante == null) return;
-
+        //Ingresar la categoria
         String categoria = JOptionPane.showInputDialog("Ingrese la categoría:");
         if (categoria == null) return;
-
+        //Ingresar el precio
         String precioStr = JOptionPane.showInputDialog("Ingrese el precio:");
         if (precioStr == null) return;
 
@@ -39,7 +40,7 @@ public class Administrador {
             JOptionPane.showMessageDialog(null, "Precio inválido.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        //Ingresar el asientos disponibles
         String asientosDisponiblesStr = JOptionPane.showInputDialog("Ingrese la cantidad de asientos disponibles:");
         if (asientosDisponiblesStr == null) return;
 
@@ -51,6 +52,7 @@ public class Administrador {
             return;
         }
 
+        //Creacion del nuevo partido
         Partido nuevoPartido = new Partido(id, fechaHora, equipoAnfitrion, equipoVisitante, categoria, precio, asientosDisponibles);
         partidos.add(nuevoPartido);
         JOptionPane.showMessageDialog(null, "Partido agregado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);

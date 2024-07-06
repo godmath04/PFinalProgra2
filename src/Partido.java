@@ -1,5 +1,5 @@
 import java.time.LocalDateTime;
-
+// La clase Partido es la que va a almacenar los datos más importantes del partido
 public class Partido {
     private String id;
     private LocalDateTime fechaHora;
@@ -78,13 +78,14 @@ public class Partido {
     }
 
 
+    //Metodo para que se reduzcan la cantidad de asientos
     public void reducirAsientosDisponibles(int cantidad) throws IllegalArgumentException {
         if (cantidad > asientosDisponibles) {
             throw new IllegalArgumentException("No hay suficientes asientos disponibles.");
         }
         asientosDisponibles -= cantidad;
     }
-
+    //Metodo para verificar que haya asientos disponibles
     public boolean hayAsientosDisponibles(int cantidad) {
         return cantidad <= asientosDisponibles;
     }

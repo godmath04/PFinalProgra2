@@ -8,9 +8,10 @@ public class Partido {
     private String categoria;
     private double precio;
     private int asientosDisponibles;
+    private Estadio estadio;
 
     //Los atributos iniciales que van a recibir los partidos
-    public Partido(String id, LocalDateTime fechaHora, String equipoAnfitrion, String equipoVisitante, String categoria, double precio, int asientosDisponibles) {
+    public Partido(String id, LocalDateTime fechaHora, String equipoAnfitrion, String equipoVisitante, String categoria, double precio, int asientosDisponibles, Estadio estadio) {
         this.id = id;
         this.fechaHora = fechaHora;
         this.equipoAnfitrion = equipoAnfitrion;
@@ -18,9 +19,17 @@ public class Partido {
         this.categoria = categoria;
         this.precio = precio;
         this.asientosDisponibles = asientosDisponibles;
+        this.estadio = estadio;
     }
 
     // Metodos de get y set
+    public Estadio getEstadio(){
+        return estadio;
+    }
+    public void setEstadio(){
+        this.estadio = estadio;
+    }
+
     public String getId() {
         return id;
     }

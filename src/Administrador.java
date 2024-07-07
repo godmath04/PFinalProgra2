@@ -52,8 +52,13 @@ public class Administrador {
             return;
         }
 
+        // Ingresar el nombre del estadio
+        String nombreEstadio = JOptionPane.showInputDialog("Ingrese el nombre del estadio:");
+        if (nombreEstadio == null) return;
+
         //Creacion del nuevo partido
-        Partido nuevoPartido = new Partido(id, fechaHora, equipoAnfitrion, equipoVisitante, categoria, precio, asientosDisponibles);
+        Estadio estadio = new Estadio(nombreEstadio);
+        Partido nuevoPartido = new Partido(id, fechaHora, equipoAnfitrion, equipoVisitante, categoria, precio, asientosDisponibles, estadio);
         partidos.add(nuevoPartido);
         JOptionPane.showMessageDialog(null, "Partido agregado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }

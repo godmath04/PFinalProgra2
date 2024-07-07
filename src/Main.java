@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,9 +11,12 @@ public class Main {
         // Lista de partidos
         List<Partido> partidos = new ArrayList<>();
         // Partidos que van a existir
-        //Primer partido
-        partidos.add(new Partido("1", LocalDateTime.of(2024, 8, 15, 19, 0), "Liga", "Barcelona", "Primera", 20.0, 100));
-        partidos.add(new Partido("2", LocalDateTime.of(2024, 10, 2, 20, 0), "Imbabura", "Orense", "Segunda", 10.0, 2));
+
+        //Ejemplo del Primer partido
+        Estadio estadio1 = new Estadio("Rodrigo Paz");
+        partidos.add(new Partido("1", LocalDateTime.of(2024, 8, 15, 19, 0), "Liga", "Barcelona", "Primera", 20.0, 100,estadio1));
+        Estadio estadio2 = new Estadio("Monumental");
+        partidos.add(new Partido("2", LocalDateTime.of(2024, 10, 2, 20, 0), "Imbabura", "Orense", "Segunda", 10.0, 2, estadio2));
 
         //Ingresando el admin
         Administrador administrador = new Administrador();
@@ -51,6 +53,7 @@ public class Main {
                                 .append(", Visitante: ").append(partido.getEquipoVisitante())
                                 .append(", Categoría: ").append(partido.getCategoria())
                                 .append(", Precio: $").append(partido.getPrecio())
+                                .append(", Estadio: ").append(partido.getEstadio().getNombre())
                                 .append(", Asientos Disponibles: ").append(partido.getAsientosDisponibles())
                                 .append("\n");
                     }
@@ -165,6 +168,7 @@ public class Main {
                     break;
 
                 case 2: // Administrador
+                    // NOTA: LA CONTRASEÑA ES admin123
                     JPasswordField passwordField = new JPasswordField();
                     int option = JOptionPane.showConfirmDialog(null, passwordField, "Ingrese la clave de administrador", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
                     if (option == JOptionPane.OK_OPTION) {
